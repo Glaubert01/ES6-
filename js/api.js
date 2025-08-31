@@ -29,7 +29,7 @@ const api = {
       const data = converterStringParaData(pensamento.data)
       const response = await axios.post(`${URL_BASE}/pensamentos`, {
         ...pensamento,
-        data
+        data: data.toISOString()
       })
       return await response.data
     }
@@ -45,7 +45,7 @@ const api = {
       const pensamento = await response.data
 
       return {
-        ...pensamentop, 
+        ...pensamento, 
         data: new Date(pensamento.data)}
     }
     catch {

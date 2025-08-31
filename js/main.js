@@ -1,3 +1,4 @@
+
 import ui from "./ui.js"
 import api from "./api.js"
 
@@ -21,7 +22,7 @@ async function manipularSubmissaoFormulario(event) {
   const data = document.getElementById("pensamento-data").value
 
   if (!validarData(data)) {
-    alert("A data não pode ser futura")
+    alert("Não é permitido o cadastro de datas futuras. Selecione outra data")
     return
   }
   
@@ -29,7 +30,7 @@ async function manipularSubmissaoFormulario(event) {
     if (id) {
       await api.editarPensamento({ id, conteudo, autoria, data })
     } else {
-      await api.salvarPensamento({ conteudo, autoria })
+      await api.salvarPensamento({ conteudo, autoria, data })
     }
     ui.renderizarPensamentos()
   } catch {
@@ -43,13 +44,11 @@ function manipularCancelamento() {
 
 async function manipularBusca() {
   const termoBusca = document.getElementById("campo-busca").value
-
   try {
     const pensamentosFiltrados = await api.buscarPensamentosPorTermo(termoBusca)
     ui.renderizarPensamentos(pensamentosFiltrados)
-  }
-  catch {
-    alert('Erro ao buscar pensamentos')
+  } catch (error) {
+    alert("Erro ao realizar busca")
   }
 }
 

@@ -19,8 +19,9 @@ const ui = {
     listaPensamentos.innerHTML = ""
   
     try {
-      let pensamentosParaRenderizar 
-      if (pensamentosFiltrados) {
+      let pensamentosParaRenderizar
+
+      if(pensamentosFiltrados) {
         pensamentosParaRenderizar = pensamentosFiltrados
       } else {
         pensamentosParaRenderizar = await api.buscarPensamentos()
@@ -88,15 +89,16 @@ const ui = {
       try {
         await api.atualizarFavorito(pensamento.id, !pensamento.favorito)
         ui.renderizarPensamentos()
-      }
-      catch (error) {
-        alert("Erro ao favoritar pensamento")
+      } catch (error) {
+        alert("Erro ao atualizar pensamento")
       }
     }
 
     const iconeFavorito = document.createElement("img")
-    iconeFavorito.src = pensamento.favorito ? "assets/imagens/icone-favorito.png" : "assets/imagens/icone-favorito_outline.png"
-    iconeFavorito.alt = "Favoritar"
+    iconeFavorito.src = pensamento.favorito ? 
+    "assets/imagens/icone-favorito.png" :
+    "assets/imagens/icone-favorito_outline.png"
+    iconeFavorito.alt = "Ícone de favorito"
     botaoFavorito.appendChild(iconeFavorito)
 
     const icones = document.createElement("div")

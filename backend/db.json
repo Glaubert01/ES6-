@@ -89,6 +89,12 @@
       "conteudo": "Testando formato de data",
       "autoria": "dev",
       "data": "2025-08-31"
+    },
+    {
+      "id": "3af9",
+      "conteudo": "Novo teste de datas",
+      "autoria": "dev",
+      "data": "2025-10-01T00:00:00.000Z"
     }
   ]
 }

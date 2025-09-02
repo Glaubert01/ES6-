@@ -7,6 +7,21 @@ const regexAutoria = /^[A-Za-z]{3,15}$/
 const pensamentosSet = new Set()
 
 
+async function adicionarChaveAoPensamento(){
+  try{
+    const pensamentos = await api.buscarPensamentos()
+    pensamentos.forEach(pensamento => {
+      const chavePensamento = 
+      `${pensamento.conteudo.trim().toLowerCase()}-${pensamento.autoria.trim().toLowerCase()}`
+      pensamentosSet.add(chavePensamento)
+    })
+  }
+  catch{
+    alert("Erro ao adicionar chave ao pensamento")
+  }
+}
+
+
 function removerEspacos(string){
   return string.replaceAll(/\s+/g, '')
 }
@@ -19,6 +34,7 @@ function validarAutoria(autoria) {
 }
 document.addEventListener("DOMContentLoaded", () => {
   ui.renderizarPensamentos()
+  adicionarChaveAoPensamento()
 
   const formularioPensamento = document.getElementById("pensamento-form")
   const botaoCancelar = document.getElementById("botao-cancelar")

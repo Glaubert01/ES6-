@@ -4,6 +4,8 @@ import api from "./api.js"
 const regexConteudo = /^[A-Za-z\s]{10,}$/
 const regexAutoria = /^[A-Za-z]{3,15}$/
 
+const pensamentosSet = new Set()
+
 
 function removerEspacos(string){
   return string.replaceAll(/\s+/g, '')
@@ -52,6 +54,14 @@ async function manipularSubmissaoFormulario(event) {
     return
   }
   
+  const chaveNovoPensamento = 
+  `${conteudo.trim().toLowerCase()}-${autoria.trim().toLowerCase()}`
+
+  if(pensamentosSet.has(chaveNovoPensamento)) {
+    alert("Pensamento duplicado! Já existe um pensamento com esse conteúdo e autoria.")
+    return
+  }
+
   try {
     if (id) {
       await api.editarPensamento({ id, conteudo, autoria, data })

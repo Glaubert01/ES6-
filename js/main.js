@@ -4,6 +4,10 @@ import api from "./api.js"
 const regexConteudo = /^[A-Za-z\s]{10,}$/
 const regexAutoria = /^[A-Za-z]{3,15}$/
 
+
+function removerEspacos(string){
+  return string.replaceAll(/\s+/g, '')
+}
 function validarConteudo(conteudo) {
   return regexConteudo.test(conteudo)
 }
@@ -30,7 +34,10 @@ async function manipularSubmissaoFormulario(event) {
   const autoria = document.getElementById("pensamento-autoria").value
   const data = document.getElementById("pensamento-data").value
 
-  if (!validarConteudo(conteudo)) {
+  const conteudoSemEspacos = removerEspacos(conteudo)
+  const autoriaSemEspacos = removerEspacos(autoria)
+
+  if (!validarConteudo(conteudoSemEspacos)) {
     alert("O conteúdo deve ter no mínimo 10 caracteres e conter apenas letras e espaços.")
     return
   }
@@ -40,7 +47,7 @@ async function manipularSubmissaoFormulario(event) {
     return
   }
 
-  if (!validarAutoria(autoria)) {
+  if (!validarAutoria(autoriaSemEspacos)) {
     alert("A autoria deve ter entre 3 e 15 caracteres e conter apenas letras.")
     return
   }
